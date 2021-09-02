@@ -4,7 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 
-export default function FadeMenu() {
+export default function FadeMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
 
@@ -19,7 +19,7 @@ export default function FadeMenu() {
   return (
     <div>
       <Button aria-controls="fade-menu" aria-haspopup="true" onClick={handleClick}>
-        Open with fade transition
+        {props.menuName}
       </Button>
       <Menu
         id="fade-menu"
@@ -29,9 +29,14 @@ export default function FadeMenu() {
         onClose={handleClose}
         TransitionComponent={Fade}
       >
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <MenuItem onClick={handleClose}>Logout</MenuItem>
+        <MenuItem onClick={handleClose}>View Plans</MenuItem>
+        <MenuItem onClick={handleClose}>New Connection</MenuItem>
+        <MenuItem onClick={handleClose}>Current Plan</MenuItem>
+        <MenuItem onClick={handleClose}>Upgrade exixting Plan</MenuItem>
+        <MenuItem onClick={handleClose}>My Data Usage</MenuItem>
+        <MenuItem onClick={handleClose}>Current Plan</MenuItem>
+        <MenuItem onClick={handleClose}>Pay Due Bill</MenuItem>
+        <MenuItem onClick={handleClose}>Payment History</MenuItem>
       </Menu>
     </div>
   );
