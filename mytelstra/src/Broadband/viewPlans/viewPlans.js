@@ -10,6 +10,7 @@ import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import FadeMenu from './Menu';
 import Cardgrid from './planCards';
+import IndexNavbar from './navbar';
 
 
 
@@ -75,32 +76,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function handleClose(){
-    console.log("Hello");
-}
-
 export default function ViewPlans() {
   const classes = useStyles();
 
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="static" color="default" elevation={0} className={classes.appBar}>
-        <Toolbar className={classes.toolbar}>
-            <img src = "/media/logo.png" alt = "Company logo">
-            </img>
-            <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
-            </Typography>
-            <FadeMenu menuName = "Mobile" className = {classes.link}/>
-            <FadeMenu menuName = "Broadband" className = {classes.link}/>
-            <FadeMenu menuName = "Shop" className = {classes.link}/>
-            <FadeMenu menuName = "cart" className = {classes.link}/>
-          <Button href="#" color="primary" variant="outlined" className={classes.link}>
-            Login
-          </Button>
-        </Toolbar>
-      </AppBar>
-      {/* Hero unit */}
+      <IndexNavbar />
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
           Broadband
@@ -113,29 +95,10 @@ export default function ViewPlans() {
       <Cardgrid />
       {/* Footer */}
       <Container maxWidth="md" component="footer" className={classes.footer}>
-        {/* <Grid container spacing={4} justifyContent="space-evenly">
-          {footers.map((footer) => (
-            <Grid item xs={6} sm={3} key={footer.title}>
-              <Typography variant="h6" color="textPrimary" gutterBottom>
-                {footer.title}
-              </Typography>
-              <ul>
-                {footer.description.map((item) => (
-                  <li key={item}>
-                    <Link href="#" variant="subtitle1" color="textSecondary">
-                      {item}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </Grid>
-          ))}
-        </Grid> */}
         <Box mt={5}>
           <Copyright />
         </Box>
       </Container>
-      {/* End footer */}
     </React.Fragment>
   );
 }
