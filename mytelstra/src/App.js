@@ -15,7 +15,7 @@ import LandingPage from 'views/examples/LandingPage';
 function App() {
   return(
     <div>
-      <Landing />
+      <AddressForm />
     </div>
   );
 }

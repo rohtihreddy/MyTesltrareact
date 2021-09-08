@@ -10,6 +10,8 @@ import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useHistory } from "react-router-dom";
+
 
 
 
@@ -64,10 +66,14 @@ const useStyles = makeStyles((theme) => ({
   }));
 
 export default function AddressForm() {
+    const inputRef = React.useRef(null)
     const classes = useStyles();
+    const [available, setAvailable] = useState(true);
+    const [resp, setResponse] = useState();
     const [validate, validatePin] = useState(false);
     const [send, setSendRequest] = useState(false);
-    const [address, setState] = useState({address1: "",
+    const [address, setState] = useState({
+        address1: "",
         address2: "",
         city: "",
         firstName: "",
@@ -79,32 +85,44 @@ export default function AddressForm() {
     useEffect( () => {
         if(validate){
             const finalAddress = {
-                street: address.address,
+                street: address.address + address.address2,
                 city: address.city,
                 state: address.state,
-                pin: address.zip
+                pincode: address.zip
             }
             console.log(finalAddress);
             axios
             .post("http://localhost:8088/address", {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    address: finalAddress
-                })
+                    // address: finalAddress
+                    street: address.address,
+                    city: address.city,
+                    state: address.state,
+                    pincode: address.zip
             })
-            .then(response => console.log(response))
+            .then(response => {
+              console.log(response);
+              setResponse(response.data);
+            });
+            console.log(resp);
+            setSendRequest(true);
+            validatePin(false);
         }
-    }, [validate, address]);
+    }, [validate, address, resp]);
     useEffect(() => {
         if(send){
-            //axios call to submit address
+            console.log(resp);
             console.log("Inside SetSendRequest")
             setSendRequest(false)
         }
-    },[send]);
+    },[send, resp]);
+
+    useEffect(() => {
+      console.log(resp);
+      if(resp === false){
+        setAvailable(false);
+      }
+      inputRef.current.click();
+    },[resp]);
 
     const setAddress = (event) => {
         setState({
@@ -212,11 +230,13 @@ export default function AddressForm() {
                 />
                 </Grid>
                 <Grid item xs={12}>
-                
+                    <p>{available ? "" : "Adress not available"}</p>
                 </Grid>
             </Grid>
                 <div className={classes.buttons}>
                   <Button
+                    ref={inputRef}
+                    href={resp ? "/Broadband/viewPlans" : ""}
                     variant="contained"
                     color="primary"
                     disabled={validate}
