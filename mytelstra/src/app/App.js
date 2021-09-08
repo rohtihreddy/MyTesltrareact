@@ -76,6 +76,11 @@ class App extends Component {
         <div className="app-body">
           <Switch>
             <Route path="/Broadband" component={ViewPlans}></Route>
+
+            
+
+            <PrivateRoute path="/profile" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+              component={(props) => <Profile authenticated={this.state.authenticated} {...props}/>}></PrivateRoute>
             <Route exact path="/" component={Landing}></Route>           
             <PrivateRoute path="/home" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
               component={(props) => <Home authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></PrivateRoute>
@@ -85,9 +90,6 @@ class App extends Component {
               render={(props) => <Signup authenticated={this.state.authenticated} {...props} />}></Route>
             <Route path="/oauth2/redirect" component={OAuth2RedirectHandler}></Route>  
             <Route component={NotFound}></Route>
-
-            <PrivateRoute path="/profile" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
-              component={(props) => <Profile authenticated={this.state.authenticated} {...props}/>}></PrivateRoute>
 
           </Switch>
         </div>

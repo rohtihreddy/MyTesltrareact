@@ -12,16 +12,7 @@ import {
   Container,
 } from "reactstrap";
 import logo from 'Broadband/media/logo.png'
-//import {dynamicElements, getLoginStatus} from 'services/LoginService';
-const dynamicElements = {
-  profileTile:
-      <NavLink
-        href="/profile"
-        target="_blank"
-        >
-        <i className="nc-icon nc-circle-10" />
-        </NavLink>
-};
+import { Link } from 'react-router-dom';
 
 function DemoNavbar(props) {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
@@ -122,15 +113,18 @@ function DemoNavbar(props) {
               {props.authenticated ? (<NavLink
                 href="/Cart"
                 title="Cart"
+                authenticated = {props.authenticated}
               >
                 <i className="nc-icon nc-cart-simple" />
               </NavLink>):(<div></div>) }
             </NavItem>
             <NavItem>
-            {props.authenticated ? (<NavLink
-            href="/profile" title="Profile">
+                <NavLink>
+                {props.authenticated ? (<Link
+            title="Profile" to = {{pathname: '/profile', authenticated: props.authenticated}}>
         <i className="nc-icon nc-circle-10" />
-        </NavLink>):(<div></div>) }
+        </Link>):(<div></div>) }
+                </NavLink>
             </NavItem>
           </Nav>
         </Collapse>

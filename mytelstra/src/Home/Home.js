@@ -12,7 +12,7 @@ export default function Home(props) {
       document.body.classList.remove("index");
     };
   });
-  //console.log(props.user.id);
+  console.log(props.authenticated);
   return (
     <>
       <DemoNavbar authenticated = {props.authenticated}/>
