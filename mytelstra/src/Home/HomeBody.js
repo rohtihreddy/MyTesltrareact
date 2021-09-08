@@ -49,16 +49,16 @@ function GetGreetings(){
 export default function HomeBody(){
     const classes = makeStyles();
     const [user, setState] = useState([]);
-    const [Plan] = useState([]);
+    const [Plan, setPlan] = useState([]);
     useEffect(() => {
       axios
-        .get("http://localhost:8088/userDetails/7485596142")
+        .get("http://localhost:8088/userDetails/10001")
         .then(response => setState(response.data))
     }, [])
     useEffect(() => {
       axios
         .get("http://localhost:8088/viewPlanById/")
-        .then(response => setState(response.data))
+        .then(response => setPlan(response.data))
     },[])
     console.log(user);
     return (

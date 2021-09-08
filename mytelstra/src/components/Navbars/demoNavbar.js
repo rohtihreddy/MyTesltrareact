@@ -1,27 +1,8 @@
-/*!
-
-=========================================================
-* Paper Kit React - v1.3.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/paper-kit-react
-
-* Copyright 2021 Creative Tim (https://www.creative-tim.com)
-* Licensed under MIT (https://github.com/creativetimofficial/paper-kit-react/blob/main/LICENSE.md)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 // nodejs library that concatenates strings
 import classnames from "classnames";
 // reactstrap components
 import {
-  Button,
   Collapse,
   NavbarBrand,
   Navbar,
@@ -92,7 +73,7 @@ function DemoNavbar(props) {
             href="/index"
             target="_blank"
             title="MyTelstra Home"
-          ><img src={logo} className="mw-15 mh-15" alt="logo"></img>
+          ><img src={logo} className="logo" alt="logo"></img>
             MyTelstra
           </NavbarBrand>
           <button
@@ -116,8 +97,7 @@ function DemoNavbar(props) {
             <NavItem>
               <NavLink
                 data-placement="bottom"
-                href="/mobile"
-                target="_blank"
+                href="/Mobile"
                 title="Mobile"
               >Mobile
               </NavLink>
@@ -125,8 +105,7 @@ function DemoNavbar(props) {
             <NavItem>
               <NavLink
                 data-placement="bottom"
-                href="/broadband"
-                target="_blank"
+                href="/Broadband"
                 title="Broadband"
               >Broadband
               </NavLink>
@@ -134,25 +113,22 @@ function DemoNavbar(props) {
             <NavItem>
               <NavLink
                 data-placement="bottom"
-                href="/shop"
-                target="_blank"
+                href="/Shop"
                 title="Shop"
               >Shop
               </NavLink>
             </NavItem>
             <NavItem>
               {props.authenticated ? (<NavLink
-                href="/cart"
-                target="_blank"
+                href="/Cart"
+                title="Cart"
               >
                 <i className="nc-icon nc-cart-simple" />
               </NavLink>):(<div></div>) }
             </NavItem>
             <NavItem>
             {props.authenticated ? (<NavLink
-        href="/profile"
-        target="_blank"
-        >
+            href="/profile" title="Profile">
         <i className="nc-icon nc-circle-10" />
         </NavLink>):(<div></div>) }
             </NavItem>

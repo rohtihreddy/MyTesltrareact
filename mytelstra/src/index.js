@@ -8,10 +8,15 @@ import 'bootstrap/dist/css/bootstrap.css';
 import "bootstrap/scss/bootstrap.scss";
 import "assets/scss/paper-kit.scss?v=1.3.0";
 import "assets/demo/demo.css?v=1.3.0";
+import Appp from 'app/App';
+import { BrowserRouter as Router } from 'react-router-dom';
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Router>
+        <Appp />
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -63,14 +63,13 @@ function LandingPageHeader() {
               href="/login"
               className="btn-default"
               color="neutral"
-              target="_blank"
               outline
             >
               Login
 
             </Button>
             <Button
-              href="/login"
+              href="/signin"
               className="btn-default invisible"
               color="neutral"
               target="_blank"
@@ -78,7 +77,7 @@ function LandingPageHeader() {
             >
               Login
             </Button>
-            <Button className="btn-default" color="neutral" type="button" outline>
+            <Button className="btn-default" href="/signup" color="neutral" type="button" outline>
               Signup
             </Button>
             </div>

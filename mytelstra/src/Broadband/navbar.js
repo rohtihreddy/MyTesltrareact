@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     },
     logo: {
       maxHeight: 35,
-      maxWidth: 45
+      maxWidth: 40
     },
     appBar: {
       borderBottom: `1px solid ${theme.palette.divider}`,

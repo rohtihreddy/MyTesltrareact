@@ -3,7 +3,7 @@ import React from "react";
 // reactstrap components
 import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
 
-function RegisterPage() {
+function SignIn() {
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
     document.body.classList.add("register-page");
@@ -72,4 +72,4 @@ function RegisterPage() {
   );
 }
 
-export default RegisterPage;
+export default SignIn;
