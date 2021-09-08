@@ -10,11 +10,12 @@ import Checkout from 'payment/checkout';
 import SignIn from 'login/LogIn'
 import SignUp from 'login/SignUp';
 import RegisterPage from 'views/examples/RegisterPage';
+import LandingPage from 'views/examples/LandingPage';
 
 function App() {
   return(
     <div>
-      <SignIn />
+      <Landing />
     </div>
   );
 }

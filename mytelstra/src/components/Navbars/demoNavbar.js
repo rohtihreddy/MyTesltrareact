@@ -42,7 +42,7 @@ const dynamicElements = {
         </NavLink>
 };
 
-function DemoNavbar() {
+function DemoNavbar(props) {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
   //const [loginStatus, onLoginChangeStatus] = React.useState(dynamicElements);
@@ -92,7 +92,7 @@ function DemoNavbar() {
             href="/index"
             target="_blank"
             title="MyTelstra Home"
-          ><img src={logo} className="mw-35 mh-35" alt="logo"></img>
+          ><img src={logo} className="mw-15 mh-15" alt="logo"></img>
             MyTelstra
           </NavbarBrand>
           <button
@@ -141,15 +141,20 @@ function DemoNavbar() {
               </NavLink>
             </NavItem>
             <NavItem>
-              <NavLink
+              {props.authenticated ? (<NavLink
                 href="/cart"
                 target="_blank"
               >
                 <i className="nc-icon nc-cart-simple" />
-              </NavLink>
+              </NavLink>):(<div></div>) }
             </NavItem>
             <NavItem>
-            {dynamicElements.profileTile}
+            {props.authenticated ? (<NavLink
+        href="/profile"
+        target="_blank"
+        >
+        <i className="nc-icon nc-circle-10" />
+        </NavLink>):(<div></div>) }
             </NavItem>
           </Nav>
         </Collapse>

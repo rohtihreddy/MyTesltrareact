@@ -17,23 +17,8 @@
 
 */
 import React from "react";
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 
-// reactstrap components
-import {
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  Form,
-  Input,
-  InputGroupAddon,
-  InputGroupText,
-  InputGroup,
-  Container,
-  Row,
-  Col,
-} from "reactstrap";
 
 // core components
 import LandingPageHeader from "components/Headers/LandingPageHeader.js";
@@ -49,7 +34,18 @@ function Landing() {
   });
   return (
     <>
-      <DemoNavbar />
+      <DemoNavbar authenticated = {false}/>
+      <Router>
+      <div>
+        <Switch>
+          <Route path="/" exact component={Landing}/>
+          <Route path="/dashboard" exact component={Home}/>
+          <Route path="/mobile/plans" exact component={ViewMobilePlans}/>
+          <Route path="/mobile/activeplans" exact component={ViewActiveMobilePlans}/>
+          <Route path="/mobile/rechargehistory/:id" component={ViewTransactionHistory}/>
+        </Switch>
+      </div>
+    </Router>
       <LandingPageHeader />
     </>
   );
