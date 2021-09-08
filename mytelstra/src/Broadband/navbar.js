@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FadeMenu from './Menu.js'
 import { Container } from 'reactstrap';
+import logo from 'Broadband/media/logo.png'
 
 const useStyles = makeStyles((theme) => ({
     '@global': {
@@ -17,6 +18,10 @@ const useStyles = makeStyles((theme) => ({
     },
     '.menu': {
         display: 'inline-block'
+    },
+    logo: {
+      maxHeight: 35,
+      maxWidth: 45
     },
     appBar: {
       borderBottom: `1px solid ${theme.palette.divider}`,
@@ -63,7 +68,7 @@ export default function Indexnavbar(){
         <Container>
             <AppBar position="fixed" color="default" elevation={0} className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
-                    <img src = "/media/logo.png" alt = "Company logo">
+                    <img src = {logo} className={classes.logo} alt = "Company logo">
                     </img>
                     <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
                     </Typography>

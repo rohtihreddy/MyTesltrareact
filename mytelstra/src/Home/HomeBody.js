@@ -1,6 +1,8 @@
 import React from "react";
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
+import Grid from "@material-ui/core/Grid";
+
 
 import Phone from "@material-ui/icons/PhoneAndroid";
 import RouterIcon from '@material-ui/icons/Router';
@@ -25,11 +27,40 @@ import CardFooter from "components/Card/CardFooter.js";
 
 import { Container } from "reactstrap";
 //import { Star } from "@material-ui/icons";
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { FcLandscape, FcNightLandscape } from "react-icons/fc";
+import { GiSun } from "react-icons/gi";
 
+function GetGreetings(){
+  var hours = new Date().getHours();
+  if(hours < 12){
+    return  <h1 className="presentation-subtitle">Good Morning <FcLandscape /></h1>;
+  }
+  else if(hours < 18){
+    return <h1 className="presentation-subtitle">Good Afternoon <GiSun /></h1>;
+  }
+  else{
+    return <h1 className="presentation-subtitle">Good Night <FcNightLandscape /></h1>;
+  }
+}
 
 
 export default function HomeBody(){
     const classes = makeStyles();
+    const [user, setState] = useState([]);
+    const [Plan] = useState([]);
+    useEffect(() => {
+      axios
+        .get("http://localhost:8088/userDetails/7485596142")
+        .then(response => setState(response.data))
+    }, [])
+    useEffect(() => {
+      axios
+        .get("http://localhost:8088/viewPlanById/")
+        .then(response => setState(response.data))
+    },[])
+    console.log(user);
     return (
         <>
           <div
@@ -43,7 +74,8 @@ export default function HomeBody(){
             <div className="content-center">
               <Container>
                 <div className="title-brand">
-                  <h1 className="presentation-title">Paper Kit React</h1>
+                  <GetGreetings />
+                  <h2 className="presentation-title">{user.username}</h2>
                   <div className="fog-low">
                     <img
                       alt="..."
@@ -57,7 +89,7 @@ export default function HomeBody(){
                     />
                   </div>
                 </div>
-                <GridContainer>
+                <Grid container direction="row" justifyContent="center" alignItems="center">
                 <GridItem xs={15} sm={8} md={5}>
                 <Card>
                     <CardHeader color="warning" stats icon>
@@ -66,12 +98,12 @@ export default function HomeBody(){
                     </CardIcon>
                     <h3 className="text-center"><small>Data Usage</small></h3>
                     <h4 className="text-center">
-                       <small >49/50 GB</small>
+                       <small >{user.dataremaining+"/500"} GB</small>
                     </h4>
                     </CardHeader>
                     <CardFooter stats>
                     <div className={classes.stats}>
-                        <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                        <a href="#pablo">
                         Upgrade
                         </a>
                     </div>
@@ -86,19 +118,19 @@ export default function HomeBody(){
                     </CardIcon>
                     <h3 className="text-center"><small>Data Usage</small></h3>
                     <h4 className="text-center">
-                       <small >49/50 GB</small>
+                       <small >{user.dataremaining+"/500"} GB</small>
                     </h4>
                     </CardHeader>
                     <CardFooter stats>
                     <div className={classes.stats}>
-                        <a href="#pablo" onClick={(e) => e.preventDefault()}>
+                        <a href="#pablo">
                         Upgrade
                         </a>
                     </div>
                     </CardFooter>
                 </Card>
                 </GridItem>
-                </GridContainer>
+                </Grid>
               </Container>
             </div>
             <div

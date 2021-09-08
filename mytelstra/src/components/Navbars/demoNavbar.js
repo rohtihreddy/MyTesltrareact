@@ -30,15 +30,22 @@ import {
   Nav,
   Container,
 } from "reactstrap";
-import {dynamicElements, getLoginStatus} from 'services/LoginService';
-
-const isUserLoggedIn = false;
-
+import logo from 'Broadband/media/logo.png'
+//import {dynamicElements, getLoginStatus} from 'services/LoginService';
+const dynamicElements = {
+  profileTile:
+      <NavLink
+        href="/profile"
+        target="_blank"
+        >
+        <i className="nc-icon nc-circle-10" />
+        </NavLink>
+};
 
 function DemoNavbar() {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
   const [navbarCollapse, setNavbarCollapse] = React.useState(false);
-  const [loginStatus, onLoginChangeStatus] = React.useState(dynamicElements);
+  //const [loginStatus, onLoginChangeStatus] = React.useState(dynamicElements);
   
 
   const toggleNavbarCollapse = () => {
@@ -46,17 +53,14 @@ function DemoNavbar() {
     document.documentElement.classList.toggle("nav-open");
   };
 
-  React.useEffect(() => {
-      const onLogin = (isUserLoggedIn) => {
+  /*React.useEffect(() => {
+      const onLogin = () => {
           if(getLoginStatus()){
               onLoginChangeStatus(dynamicElements);
           }
       }
-
-      //Write logic to get Login status here
-
-      onLogin(isUserLoggedIn);
-  },[]);
+      onLogin();
+  },[]);*/
 
   React.useEffect(() => {
     const updateNavbarColor = () => {
@@ -88,7 +92,7 @@ function DemoNavbar() {
             href="/index"
             target="_blank"
             title="MyTelstra Home"
-          ><img src="media/logo.png" alt="logo"></img>
+          ><img src={logo} className="mw-35 mh-35" alt="logo"></img>
             MyTelstra
           </NavbarBrand>
           <button
@@ -145,7 +149,7 @@ function DemoNavbar() {
               </NavLink>
             </NavItem>
             <NavItem>
-            {loginStatus.profileTile}
+            {dynamicElements.profileTile}
             </NavItem>
           </Nav>
         </Collapse>

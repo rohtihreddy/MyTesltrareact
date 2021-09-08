@@ -68,13 +68,13 @@ export default function Cardgrid(){
     const [plans, setState] = useState([]);
     useEffect(() => {
         axios
-            .get("http://localhost:8088/viewPlans")
+            .get("http://localhost:8088/viewUpgradePlans/7485596142")
             .then(response => setState(response.data))
     }, [])
     console.log(plans);
     return(
         <div>
-            <Container maxWidth="md" component="main">
+            <Container maxWidth="md" component="main" >
                 <Grid container spacing={5} alignItems="flex-end">
                 {plans.map((plan) => (
                     // Enterprise card is full width at sm breakpoint

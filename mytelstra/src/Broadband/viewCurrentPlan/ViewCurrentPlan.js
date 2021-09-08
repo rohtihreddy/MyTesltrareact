@@ -2,14 +2,12 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
-import FadeMenu from 'Broadband/Menu';
-import Cardgrid from 'Broadband/viewPlans/planCards';
+import Cardgrid from 'Broadband/viewCurrentPlan/planCards';
 import IndexNavbar from 'Broadband/navbar';
 
 
@@ -76,19 +74,20 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewPlans() {
+export default function ViewCurrentPlans() {
   const classes = useStyles();
 
   return (
     <React.Fragment>
       <CssBaseline />
       <IndexNavbar />
+      <Box m={1} p={1}></Box>
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
           Broadband
         </Typography>
         <Typography variant="h5" align="center" color="textSecondary" component="p">
-          Plans and Pricing
+          Current Plan Details
         </Typography>
       </Container>
       {/* End hero unit */}

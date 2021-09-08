@@ -14,11 +14,11 @@ function RegisterPage() {
   return (
     <>
         <div className="filter" />
-        <Container>
-          <Row>
-            <Col className="ml-auto mr-auto" lg="4">
+        <Container className="h-100">
+          <Row className="row h-100 justify-content-center align-items-center">
+            <Col className="ml-auto mr-auto " lg="4">
               <Card className="card-register ml-auto mr-auto">
-                <h3 className="title mx-auto">Welcome</h3>
+                <h3 className="title mx-auto">Sign Up</h3>
                 <div className="social-line text-center">
                   <Button
                     className="btn-neutral btn-just-icon mr-1"
@@ -34,7 +34,7 @@ function RegisterPage() {
                     href="#pablo"
                     onClick={(e) => e.preventDefault()}
                   >
-                    <i className="fa fa-google-plus" />
+                    <i className="fa fa-google" />
                   </Button>
                   <Button
                     className="btn-neutral btn-just-icon"
@@ -68,12 +68,6 @@ function RegisterPage() {
             </Col>
           </Row>
         </Container>
-        <div className="footer register-footer text-center">
-          <h6>
-            © {new Date().getFullYear()}, made with{" "}
-            <i className="fa fa-heart heart" /> by Creative Tim
-          </h6>
-        </div>
     </>
   );
 }

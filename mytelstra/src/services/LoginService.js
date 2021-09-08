@@ -12,7 +12,7 @@ import {
   Container,
 } from "reactstrap";
 
-const isUserLoggedIn = false;
+const isUserLoggedIn = true;
 
 const dynamicElements = {
     profileTile: <Button

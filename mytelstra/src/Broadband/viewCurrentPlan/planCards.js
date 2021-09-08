@@ -43,9 +43,14 @@ const useStyles = makeStyles((theme) => ({
       backgroundColor:
         theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[700],
     },
-    cardPricing: {
+    cardPricing1: {
       display: 'flex',
       justifyContent: 'center',
+      alignItems: 'baseline',
+      marginBottom: theme.spacing(2),
+    },
+    cardPricing2: {
+      display: 'flex',
       alignItems: 'baseline',
       marginBottom: theme.spacing(2),
     },
@@ -65,31 +70,36 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Cardgrid(){
     const classes = useStyles();
-    const [plans, setState] = useState([]);
+    const [plan, setState] = useState({});
+    const [details, setDetails] = useState({});
     useEffect(() => {
         axios
-            .get("http://localhost:8088/viewPlans")
-            .then(response => setState(response.data))
-    }, [])
-    console.log(plans);
+          .get("http://localhost:8088/currentPlan/10001")
+          .then(response => setDetails(response.data));
+    }, []);
+    useEffect(() => {
+      const url = "http://localhost:8088/broadbandPlan/" + details.planId;
+      axios
+        .get(url)
+        .then(response => setState(response.data));
+    }, [details]);
+    console.log(details);
+    console.log(plan);
     return(
         <div>
             <Container maxWidth="md" component="main">
-                <Grid container spacing={5} alignItems="flex-end">
-                {plans.map((plan) => (
-                    // Enterprise card is full width at sm breakpoint
-                    <Grid item key={plan.plan} xs={12} sm={plan.plan === 'TELSTRA 849' ? 12 : 6} md={4}>
+                <Grid container spacing={5} alignItems="flex-start">
+                    <Grid item key={plan.planId} xs={12} sm={6} md={4}>
                     <Card>
                         <CardHeader
                         title={plan.plan}
                         subheader={plan.subheader}
                         titleTypographyProps={{ align: 'center' }}
                         subheaderTypographyProps={{ align: 'center' }}
-                        action={plan.plan === 'TELSTRA 1999' ? <StarIcon /> : null}
                         className={classes.cardHeader}
                         />
                         <CardContent>
-                            <div className={classes.cardPricing}>
+                            <div className={classes.cardPricing1}>
                                 <Typography component="h2" variant="h3" color="textPrimary">
                                 {plan.price}
                                 </Typography>
@@ -98,12 +108,7 @@ export default function Cardgrid(){
                                 </Typography>
                             </div>
                             <ul>
-                                {/* {plans.description.map((line) => (
-                                <Typography component="li" variant="subtitle1" align="center" key={line}>
-                                    {line}
-                                </Typography>
-                                ))} */}
-                                <div className={classes.cardPricing}>
+                                <div className={classes.cardPricing1}>
                                     <Typography variant="subtitle2" color="textSecondary">
                                     Total of  
                                     </Typography>
@@ -114,7 +119,7 @@ export default function Cardgrid(){
                                     GB of Data
                                     </Typography>
                                 </div>
-                                <div className={classes.cardPricing}>
+                                <div className={classes.cardPricing1}>
                                     <Typography variant="subtitle2" color="textSecondary">
                                     Upto  
                                     </Typography>
@@ -125,7 +130,7 @@ export default function Cardgrid(){
                                     Mbps of Speed
                                     </Typography>
                                 </div>
-                                <div className={classes.cardPricing}>
+                                <div className={classes.cardPricing1}>
                                     <Typography variant="subtitle2" color="textSecondary">
                                     Enjoy Data for
                                     </Typography>
@@ -138,14 +143,70 @@ export default function Cardgrid(){
                                 </div>
                             </ul>
                         </CardContent>
-                        <CardActions>
-                        <Button fullWidth variant="outlined" color="primary">
-                            Buy now
-                        </Button>
-                        </CardActions>
                     </Card>
                     </Grid>
-                ))}
+                    <Grid item key={plan.planId} xs={12} sm={12} md={8}>
+                    <Card>
+                        <CardHeader
+                        title="Recharge Details"
+                        titleTypographyProps={{ align: 'center' }}
+                        subheaderTypographyProps={{ align: 'center' }}
+                        className={classes.cardHeader}
+                        />
+                        <CardContent>
+                            <ul>
+                                <div className={classes.cardPricing2}>
+                                    <Typography variant="subtitle2" color="textSecondary">
+                                    Plan ID
+                                    </Typography>
+                                    <Typography variant="subtitle2" color="textPrimary">
+                                    :{"   " + details.planId} 
+                                    </Typography>
+                                </div>
+                                <div className={classes.cardPricing2}>
+                                    <Typography variant="subtitle2" color="textSecondary">
+                                    Date of recharge
+                                    </Typography>
+                                    <Typography variant="subtitle2" color="textPrimary">
+                                    :{"   " + details.dateOfRecharge} 
+                                    </Typography>
+                                </div>
+                                <div className={classes.cardPricing2}>
+                                    <Typography variant="subtitle2" color="textSecondary">
+                                    Vaid Till
+                                    </Typography>
+                                    <Typography variant="subtitle2" color="textPrimary">
+                                    :{"   " + details.dateOfExpiry} 
+                                    </Typography>
+                                </div>
+                                <div className={classes.cardPricing2}>
+                                    <Typography variant="subtitle2" color="textSecondary">
+                                    Payment Mode
+                                    </Typography>
+                                    <Typography variant="subtitle2" color="textPrimary">
+                                    :{"   " + details.paymentMode} 
+                                    </Typography>
+                                </div>
+                                <div className={classes.cardPricing2}>
+                                <Typography variant="subtitle2" color="textSecondary">
+                                    Bill no.
+                                    </Typography>
+                                    <Typography variant="subtitle2" color="textPrimary">
+                                    :{"   " + details.billNo} 
+                                    </Typography>
+                                </div>
+                                <div className={classes.cardPricing2}>
+                                <Typography variant="subtitle2" color="textSecondary">
+                                    Ref. no.
+                                    </Typography>
+                                    <Typography variant="subtitle2" color="textPrimary">
+                                    :{"   " + details.referenceId} 
+                                    </Typography>
+                                </div>
+                            </ul>
+                        </CardContent>
+                    </Card>
+                    </Grid>
                 </Grid>
             </Container>
         </div>
