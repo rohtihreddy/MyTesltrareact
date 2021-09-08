@@ -110,13 +110,14 @@ function DemoNavbar(props) {
               </NavLink>
             </NavItem>
             <NavItem>
-              {props.authenticated ? (<NavLink
-                href="/Cart"
+              <NavLink>
+              {props.authenticated ? (<Link
                 title="Cart"
-                authenticated = {props.authenticated}
+                to = {{pathname: '/Cart', authenticated: props.authenticated}}
               >
                 <i className="nc-icon nc-cart-simple" />
-              </NavLink>):(<div></div>) }
+              </Link>):(<div></div>) }
+              </NavLink>
             </NavItem>
             <NavItem>
                 <NavLink>

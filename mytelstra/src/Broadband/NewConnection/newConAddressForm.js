@@ -10,8 +10,6 @@ import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
-
 
 
 
@@ -65,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function AddressForm() {
+export default function AddressForm(props) {
     const inputRef = React.useRef(null)
     const classes = useStyles();
     const [available, setAvailable] = useState(true);
@@ -135,7 +133,7 @@ export default function AddressForm() {
 
   return (
     <React.Fragment>
-      <Indexnavbar />
+      <Indexnavbar authenticated = {props.authenticated} user = {props.user} />
       <Box m={1} p={1}></Box>
       <main className={classes.layout}>
         <Paper className={classes.paper}>

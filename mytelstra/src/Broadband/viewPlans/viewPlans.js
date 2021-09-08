@@ -76,13 +76,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ViewPlans() {
+export default function ViewPlans(props) {
   const classes = useStyles();
-
+  console.log(props.authenticated + "View plans");
+  console.log(props.user + "View plans");
   return (
     <React.Fragment>
       <CssBaseline />
-      <IndexNavbar />
+      <IndexNavbar authenticated = {props.authenticated} user = {props.user}/>
       <Container maxWidth="sm" component="main" className={classes.heroContent}>
         <Typography component="h1" variant="h2" align="center" color="textPrimary" gutterBottom>
           Broadband

@@ -5,8 +5,18 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import FadeMenu from './Menu.js'
-import { Container } from 'reactstrap';
-import logo from 'Broadband/media/logo.png'
+import logo from 'Broadband/media/logo.png';
+import {
+  Collapse,
+  NavbarBrand,
+  Navbar,
+  NavItem,
+  NavLink,
+  Nav,
+  Container,
+} from "reactstrap";
+import { Link } from 'react-router-dom';
+
 
 const useStyles = makeStyles((theme) => ({
     '@global': {
@@ -61,9 +71,10 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-export default function Indexnavbar(){
+export default function Indexnavbar(props){
     const classes = useStyles();
-
+    console.log(props.authenticated + "Navbar");
+  console.log(props.user + "Navbar");
     return(
         <Container>
             <AppBar position="fixed" color="default" elevation={0} className={classes.appBar}>
@@ -73,12 +84,15 @@ export default function Indexnavbar(){
                     <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
                     </Typography>
                     <FadeMenu menuName = "Mobile" className = {classes.link}/>
-                    <FadeMenu menuName = "Broadband" className = {classes.link}/>
+                    <FadeMenu menuName = "Broadband" className = {classes.link} authenticated = {props.authenticated} user = {props.user}/>
                     <FadeMenu menuName = "Shop" className = {classes.link}/>
                     <FadeMenu menuName = "cart" className = {classes.link}/>
-                <Button href="#" color="primary" variant="outlined" className={classes.link}>
-                    Login
-                </Button>
+                    
+                {props.authenticated ? (<Link
+            title="Profile" to = {{pathname: '/profile', authenticated: props.authenticated}}>
+        <i className="nc-icon nc-circle-10" />
+        </Link>):(<div></div>) }
+                
                 </Toolbar>
             </AppBar>
         </Container>

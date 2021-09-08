@@ -4,10 +4,14 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import Fade from '@material-ui/core/Fade';
 import { Style } from '@material-ui/icons';
+import { Link } from 'react-router-dom';
+import { useHistory } from "react-router-dom";
+
 
 export default function FadeMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  let history = useHistory();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -15,7 +19,15 @@ export default function FadeMenu(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
+    history.push({
+      pathname: '/Broadband/newConnection',
+      authenticated: props.authenticated,
+      user: props.user
+    });
   };
+
+  console.log(props.authenticated + "Menu");
+  console.log(props.user + "Menu");
 
   return (
     <div>
@@ -31,11 +43,10 @@ export default function FadeMenu(props) {
         TransitionComponent={Fade}
       >
         <MenuItem onClick={handleClose}>View Plans</MenuItem>
-        <MenuItem onClick={handleClose}>New Connection</MenuItem>
         <MenuItem onClick={handleClose}>Current Plan</MenuItem>
-        <MenuItem onClick={handleClose}>Upgrade exixting Plan</MenuItem>
+        <MenuItem onClick={handleClose} >New Connection</MenuItem>
+        <MenuItem onClick={handleClose}>Upgrade existing Plan</MenuItem>
         <MenuItem onClick={handleClose}>My Data Usage</MenuItem>
-        <MenuItem onClick={handleClose}>Current Plan</MenuItem>
         <MenuItem onClick={handleClose}>Pay Due Bill</MenuItem>
         <MenuItem onClick={handleClose}>Payment History</MenuItem>
       </Menu>

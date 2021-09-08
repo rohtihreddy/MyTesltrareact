@@ -20,6 +20,7 @@ import 'react-s-alert/dist/s-alert-css-effects/slide.css';
 import './App.css';
 import Landing from 'Landing';
 import ViewPlans from 'Broadband/viewPlans/viewPlans';
+import AddressForm from 'Broadband/NewConnection/newConAddressForm';
 
 class App extends Component {
   constructor(props) {
@@ -75,9 +76,10 @@ class App extends Component {
       <div className="app">
         <div className="app-body">
           <Switch>
-            <Route path="/Broadband" component={ViewPlans}></Route>
+            <Route path="/Broadband" component={(props) => <ViewPlans authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></Route>
 
-            
+            <PrivateRoute path="/Broadband/newConnection" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+              component={(props) => <AddressForm authenticated={this.state.authenticated} {...props}/>}></PrivateRoute>
 
             <PrivateRoute path="/profile" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
               component={(props) => <Profile authenticated={this.state.authenticated} {...props}/>}></PrivateRoute>
