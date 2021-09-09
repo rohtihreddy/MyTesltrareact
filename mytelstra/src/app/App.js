@@ -76,10 +76,13 @@ class App extends Component {
       <div className="app">
         <div className="app-body">
           <Switch>
+            <PrivateRoute exact path="/Broadband/newConnection" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+              component={(props) => <AddressForm authenticated={this.state.authenticated} {...props}/>}></PrivateRoute>
+
             <Route path="/Broadband" component={(props) => <ViewPlans authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></Route>
 
-            <PrivateRoute path="/Broadband/newConnection" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
-              component={(props) => <AddressForm authenticated={this.state.authenticated} {...props}/>}></PrivateRoute>
+            {/* <PrivateRoute exact path="/Broadband/newConnection" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+              component={(props) => <Profile authenticated={this.state.authenticated} {...props}/>}></PrivateRoute> */}
 
             <PrivateRoute path="/profile" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
               component={(props) => <Profile authenticated={this.state.authenticated} {...props}/>}></PrivateRoute>

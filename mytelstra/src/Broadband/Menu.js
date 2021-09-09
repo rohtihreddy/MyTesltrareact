@@ -19,11 +19,11 @@ export default function FadeMenu(props) {
 
   const handleClose = () => {
     setAnchorEl(null);
-    history.push({
-      pathname: '/Broadband/newConnection',
-      authenticated: props.authenticated,
-      user: props.user
-    });
+    // history.push({
+    //   pathname: '/Broadband/newConnection',
+    //   authenticated: props.authenticated,
+    //   user: props.user
+    // });
   };
 
   console.log(props.authenticated + "Menu");
@@ -44,7 +44,7 @@ export default function FadeMenu(props) {
       >
         <MenuItem onClick={handleClose}>View Plans</MenuItem>
         <MenuItem onClick={handleClose}>Current Plan</MenuItem>
-        <MenuItem onClick={handleClose} >New Connection</MenuItem>
+        <MenuItem onClick={handleClose}><Link to = {{pathname: '/Broadband/newConnection', authenticated: props.authenticated, user: props.user}}>New Connection</Link></MenuItem>
         <MenuItem onClick={handleClose}>Upgrade existing Plan</MenuItem>
         <MenuItem onClick={handleClose}>My Data Usage</MenuItem>
         <MenuItem onClick={handleClose}>Pay Due Bill</MenuItem>
