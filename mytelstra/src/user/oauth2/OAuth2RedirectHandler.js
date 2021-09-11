@@ -20,7 +20,7 @@ class OAuth2RedirectHandler extends Component {
         if(token) {
             localStorage.setItem(ACCESS_TOKEN, token);
             localStorage.setItem(UserAuthenticated, true);
-            getCurrentUser().then(response => localStorage.setItem(USER, response));
+            getCurrentUser().then(response => localStorage.setItem(USER, JSON.stringify(response)));
             return <Redirect to={{
                 pathname: "/home",
                 state: { from: this.props.location }

@@ -46,7 +46,6 @@ export default function FadeMenu(props) {
         <MenuItem onClick={handleClose}>Current Plan</MenuItem>
         <MenuItem onClick={handleClose}><Link to = {{pathname: '/Broadband/newConnection', authenticated: props.authenticated, user: props.user}}>New Connection</Link></MenuItem>
         <MenuItem onClick={handleClose}>Upgrade existing Plan</MenuItem>
-        <MenuItem onClick={handleClose}>My Data Usage</MenuItem>
         <MenuItem onClick={handleClose}>Pay Due Bill</MenuItem>
         <MenuItem onClick={handleClose}>Payment History</MenuItem>
       </Menu>

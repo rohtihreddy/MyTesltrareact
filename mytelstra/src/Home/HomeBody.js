@@ -31,6 +31,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { FcLandscape, FcNightLandscape } from "react-icons/fc";
 import { GiSun } from "react-icons/gi";
+import {USER} from 'constants/index'
 
 function GetGreetings(){
   var hours = new Date().getHours();
@@ -50,16 +51,17 @@ export default function HomeBody(){
     const classes = makeStyles();
     const [user, setState] = useState([]);
     const [Plan, setPlan] = useState([]);
+    var userDetails = JSON.parse(localStorage.getItem(USER));
     useEffect(() => {
       axios
-        .get("http://localhost:8088/userDetails/10001")
+        .get("http://localhost:8088/userDetails/" + userDetails.id)
         .then(response => setState(response.data))
-    }, [])
+    }, [userDetails]);
     useEffect(() => {
       axios
         .get("http://localhost:8088/viewPlanById/")
         .then(response => setPlan(response.data))
-    },[])
+    },[]);
     console.log(user);
     return (
         <>

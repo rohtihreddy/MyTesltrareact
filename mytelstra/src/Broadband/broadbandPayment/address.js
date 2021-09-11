@@ -20,20 +20,20 @@ export default function AddressForm(props) {
     address: ""
   });
 
-  function setAddress(event){
+  const setAddress = (event) => {
     setState({
         ...address,
         [event.target.name]: event.target.value
     });
     address.address = address.address1 + " " + address.address2;
     console.log(address);
-    // props.parentHandleAddress(address);
+    props.parentHandleAddress(address);
 }
 
-useEffect(() => {
-  console.log(address);
-  props.parentHandleAddress(address);
-}, [address, props]);
+// useEffect(() => {
+//   console.log(address);
+//   props.parentHandleAddress(address);
+// }, [address, props]);
 
   return (
     <React.Fragment>
@@ -49,7 +49,7 @@ useEffect(() => {
             label="First name"
             fullWidth
             autoComplete="given-name"
-            onChange={() => setAddress(event)}
+            onChange={setAddress}
           />
         </Grid>
         <Grid item xs={12} sm={6}>

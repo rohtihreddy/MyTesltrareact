@@ -13,10 +13,11 @@ export default function Home(props) {
       document.body.classList.remove("index");
     };
   });
-  console.log(props);
-  console.log("From Home");
-  console.log(localStorage.getItem(UserAuthenticated));
-  console.log(localStorage.getItem(USER));
+  // console.log(props);
+  // console.log("From Home");
+  // console.log(localStorage.getItem(UserAuthenticated));
+  var x = JSON.parse(localStorage.getItem(USER));
+  console.log(x);
   return (
     <>
       <DemoNavbar authenticated = {props.authenticated} user = {localStorage.getItem(USER)}/>

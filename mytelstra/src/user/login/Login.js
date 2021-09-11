@@ -92,7 +92,7 @@ class LoginForm extends Component {
         .then(response => {
             localStorage.setItem(ACCESS_TOKEN, response.accessToken);
             localStorage.setItem(UserAuthenticated, true);
-            getCurrentUser().then(response => localStorage.setItem(USER, response));
+            getCurrentUser().then(response => localStorage.setItem(USER, JSON.stringify(response)));
             console.log("From LogIn");
             console.log(localStorage.getItem(UserAuthenticated));
             console.log(localStorage.getItem(USER));

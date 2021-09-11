@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -10,13 +9,15 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Button from '@material-ui/core/Button';
 import Link from '@material-ui/core/Link';
 import Typography from '@material-ui/core/Typography';
-import AddressForm from 'payment/address';
-import PaymentForm from 'payment/paymentDetails';
-import Review from 'payment/review';
+import AddressForm from 'Broadband/broadbandPayment/address';
+import PaymentForm from 'Broadband/broadbandPayment/paymentDetails';
+import Review from 'Broadband/broadbandPayment/review';
 import Navbar from 'Broadband/navbar'
 import { UserAuthenticated, USER, NewBroadbandPlan } from 'constants/index';
 import { useState, useEffect } from 'react';
 import { useLocation } from "react-router-dom";
+import axios from 'axios';
+
 
 
 function Copyright() {
@@ -76,7 +77,20 @@ export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const location = useLocation();
   const [address, setState] = useState({});
-  const paymentInfo = {};
+  const [paymentInfo, setPaymentInfo] = useState({});
+  const products = [location.newPlan];
+  const [send, setSend] = useState(false);
+
+  useEffect(() => {
+    if(send){
+      var userDetails = JSON.parse(localStorage.getItem(USER));
+      console.log("Hello");
+      axios.put("http://localhost:8088/recharge",{
+        userid: userDetails.id,
+        planid: products[0].id
+      }).then(response => console.log(response));
+    }
+  }, [send, products]);
 
   const getStepContent = (step) => {
     switch (step) {
@@ -85,7 +99,7 @@ export default function Checkout(props) {
       case 1:
         return <PaymentForm parentHandlePaymentDetails = {handlePaymentDetails}/>;
       case 2:
-        return <Review />;
+        return <Review addressInfo = {address} paymentInfo = {paymentInfo} products = {products}/>;
       default:
         throw new Error('Unknown step');
     }
@@ -96,19 +110,24 @@ export default function Checkout(props) {
     console.log(address);
   }
 
-  const handlePaymentDetails = () => {
-
+  const handlePaymentDetails = (paymentChild) => {
+    setPaymentInfo(paymentChild);
+    console.log(paymentInfo);
   }
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    setActiveStep(activeStep + 1);   
+    console.log(activeStep + " " + steps.length); 
+    if(activeStep === steps.length - 1){
+      setSend(true);
+    }
   };
 
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
 
-  // console.log(location.newPlan);
+  console.log(location.newPlan);
 
   return (
     <React.Fragment>
@@ -154,7 +173,7 @@ export default function Checkout(props) {
                     onClick={handleNext}
                     className={classes.button}
                   >
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
+                    {activeStep === steps.length - 1 ? 'Confirm' : 'Next'}
                   </Button>
                 </div>
               </React.Fragment>
