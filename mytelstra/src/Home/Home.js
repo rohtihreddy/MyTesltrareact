@@ -3,6 +3,7 @@
 import React from 'react'
 import DemoNavbar from 'components/Navbars/demoNavbar';
 import HomeBody from './HomeBody';
+import {USER, UserAuthenticated} from 'constants/index';
 
 export default function Home(props) {
   document.documentElement.classList.remove("nav-open");
@@ -12,10 +13,13 @@ export default function Home(props) {
       document.body.classList.remove("index");
     };
   });
-  console.log(props.authenticated);
+  console.log(props);
+  console.log("From Home");
+  console.log(localStorage.getItem(UserAuthenticated));
+  console.log(localStorage.getItem(USER));
   return (
     <>
-      <DemoNavbar authenticated = {props.authenticated}/>
+      <DemoNavbar authenticated = {props.authenticated} user = {localStorage.getItem(USER)}/>
       <HomeBody />
       <div className="main">
       </div>

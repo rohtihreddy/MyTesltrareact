@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { ACCESS_TOKEN } from '../../constants';
-import { Redirect } from 'react-router-dom'
+import { ACCESS_TOKEN, UserAuthenticated, USER } from '../../constants';
+import { Redirect } from 'react-router-dom';
+import { getCurrentUser, login } from '../../util/APIUtils';
+
 
 class OAuth2RedirectHandler extends Component {
     getUrlParameter(name) {
@@ -17,6 +19,8 @@ class OAuth2RedirectHandler extends Component {
 
         if(token) {
             localStorage.setItem(ACCESS_TOKEN, token);
+            localStorage.setItem(UserAuthenticated, true);
+            getCurrentUser().then(response => localStorage.setItem(USER, response));
             return <Redirect to={{
                 pathname: "/home",
                 state: { from: this.props.location }

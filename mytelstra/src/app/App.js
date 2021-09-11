@@ -3,7 +3,6 @@ import {
   Route,
   Switch
 } from 'react-router-dom';
-import AppHeader from '../common/AppHeader';
 import Home from '../Home/Home';
 import Login from '../user/login/Login';
 import Signup from '../user/signup/Signup';
@@ -12,8 +11,9 @@ import OAuth2RedirectHandler from '../user/oauth2/OAuth2RedirectHandler';
 import NotFound from '../common/NotFound';
 import LoadingIndicator from '../common/LoadingIndicator';
 import { getCurrentUser } from '../util/APIUtils';
-import { ACCESS_TOKEN } from '../constants';
+import { ACCESS_TOKEN, UserAuthenticated, USER } from '../constants/index';
 import PrivateRoute from '../common/PrivateRoute';
+import PrivateRouteNew from 'common/PrivateRouteNew';
 import Alert from 'react-s-alert';
 import 'react-s-alert/dist/s-alert-default.css';
 import 'react-s-alert/dist/s-alert-css-effects/slide.css';
@@ -21,8 +21,9 @@ import './App.css';
 import Landing from 'Landing';
 import ViewPlans from 'Broadband/viewPlans/viewPlans';
 import AddressForm from 'Broadband/NewConnection/newConAddressForm';
-
+import Checkout from 'Broadband/broadbandPayment/checkout';
 class App extends Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -30,7 +31,6 @@ class App extends Component {
       currentUser: null,
       loading: false
     }
-
     this.loadCurrentlyLoggedInUser = this.loadCurrentlyLoggedInUser.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
@@ -42,6 +42,8 @@ class App extends Component {
 
     getCurrentUser()
     .then(response => {
+      // console.log("hello Setting user");
+      // console.log(UserAuthenticated);
       this.setState({
         currentUser: response,
         authenticated: true,
@@ -56,6 +58,8 @@ class App extends Component {
 
   handleLogout() {
     localStorage.removeItem(ACCESS_TOKEN);
+    localStorage.removeItem(UserAuthenticated);
+    localStorage.removeItem(USER);
     this.setState({
       authenticated: false,
       currentUser: null
@@ -64,8 +68,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.loadCurrentlyLoggedInUser();
+    this.loadCurrentlyLoggedInUser(); 
   }
+
 
   render() {
     if(this.state.loading) {
@@ -76,19 +81,23 @@ class App extends Component {
       <div className="app">
         <div className="app-body">
           <Switch>
+            <Route exact path="/Broadband" component={(props) => <ViewPlans authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></Route>
             <PrivateRoute exact path="/Broadband/newConnection" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
-              component={(props) => <AddressForm authenticated={this.state.authenticated} {...props}/>}></PrivateRoute>
+              component={(props) => <AddressForm authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></PrivateRoute>
 
-            <Route path="/Broadband" component={(props) => <ViewPlans authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></Route>
+            <PrivateRouteNew exact path="/Broadband/viewPlans" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+              component={(props) => <ViewPlans authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
 
-            {/* <PrivateRoute exact path="/Broadband/newConnection" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
-              component={(props) => <Profile authenticated={this.state.authenticated} {...props}/>}></PrivateRoute> */}
+            <PrivateRouteNew path="/profile" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+              component={(props) => <Profile authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
 
-            <PrivateRoute path="/profile" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
-              component={(props) => <Profile authenticated={this.state.authenticated} {...props}/>}></PrivateRoute>
+            <PrivateRouteNew path="/Broadband/Payment" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+              component={(props) => <Checkout newPlan = {this.props.newPlan} {...props}/>}></PrivateRouteNew>
+
+
             <Route exact path="/" component={Landing}></Route>           
-            <PrivateRoute path="/home" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
-              component={(props) => <Home authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></PrivateRoute>
+            <PrivateRouteNew path="/home" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+              component={(props) => <Home authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></PrivateRouteNew>
             <Route path="/login"
               render={(props) => <Login authenticated={this.state.authenticated} {...props} />}></Route>
             <Route path="/signup"

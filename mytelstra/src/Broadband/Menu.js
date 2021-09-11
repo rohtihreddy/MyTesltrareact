@@ -26,8 +26,8 @@ export default function FadeMenu(props) {
     // });
   };
 
-  console.log(props.authenticated + "Menu");
-  console.log(props.user + "Menu");
+  // console.log(props.authenticated + "Menu");
+  // console.log(props.user + "Menu");
 
   return (
     <div>

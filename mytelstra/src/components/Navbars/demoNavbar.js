@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import logo from 'Broadband/media/logo.png'
 import { Link } from 'react-router-dom';
+import { UserAuthenticated } from 'constants/index';
 
 function DemoNavbar(props) {
   const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
@@ -111,7 +112,7 @@ function DemoNavbar(props) {
             </NavItem>
             <NavItem>
               <NavLink>
-              {props.authenticated ? (<Link
+              {localStorage.getItem(UserAuthenticated) ? (<Link
                 title="Cart"
                 to = {{pathname: '/Cart', authenticated: props.authenticated}}
               >
@@ -121,8 +122,8 @@ function DemoNavbar(props) {
             </NavItem>
             <NavItem>
                 <NavLink>
-                {props.authenticated ? (<Link
-            title="Profile" to = {{pathname: '/profile', authenticated: props.authenticated}}>
+                {localStorage.getItem(UserAuthenticated) ? (<Link
+            title="Profile" to = {{pathname: '/profile', authenticated: props.authenticated, currentUser: props.user}}>
         <i className="nc-icon nc-circle-10" />
         </Link>):(<div></div>) }
                 </NavLink>

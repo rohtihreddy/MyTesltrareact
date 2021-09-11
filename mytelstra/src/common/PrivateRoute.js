@@ -3,13 +3,14 @@ import {
     Route,
     Redirect
   } from "react-router-dom";
+// import USER from 'constants/index'
   
   
-// const PrivateRoute = ({ component: Component, authenticated, ...rest }) => (
+// const PrivateRouteNew = ({ component: Component, authenticated, ...rest }) => (
 //     <Route
 //       {...rest}
 //       render={props =>
-//         authenticated ? (
+//         localStorage.getItem(USER.authenticated) ? (
 //           <Component {...rest} {...props} />
 //         ) : (
 //           <Redirect
@@ -41,4 +42,4 @@ const PrivateRoute = ({ authenticated, component: Component, ...rest }) => (
   />
 );
   
-export default PrivateRoute
+export default PrivateRoute;

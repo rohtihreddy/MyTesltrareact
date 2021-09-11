@@ -130,7 +130,8 @@ export default function AddressForm(props) {
         address.address = address.address1 + " " + address.address2;
         console.log(address);
     }
-
+  console.log(props.authenticated + "New Connection");
+  console.log(props.user + "New Connection");
   return (
     <React.Fragment>
       <Indexnavbar authenticated = {props.authenticated} user = {props.user} />
@@ -239,7 +240,10 @@ export default function AddressForm(props) {
                     color="primary"
                     disabled={validate}
                     className={classes.button}
-                    onClick={() => validatePin(true)}
+                    onClick={() => {
+                      console.log("hello");
+                      validatePin(true)
+                      }}
                   >Proceed
                   </Button>
                 </div>

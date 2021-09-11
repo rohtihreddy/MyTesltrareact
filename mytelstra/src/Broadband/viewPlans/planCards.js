@@ -11,6 +11,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { NewBroadbandPlan } from 'constants/index';
+import { useHistory } from "react-router-dom";
+
 
 const useStyles = makeStyles((theme) => ({
     '@global': {
@@ -66,19 +69,28 @@ const useStyles = makeStyles((theme) => ({
 export default function Cardgrid(){
     const classes = useStyles();
     const [plans, setState] = useState([]);
+    let history = useHistory();
     useEffect(() => {
         axios
             .get("http://localhost:8088/viewPlans")
             .then(response => setState(response.data))
     }, [])
-    console.log(plans);
+
+    const sendPlanDetails = (plan) => {
+        history.push({
+        pathname: '/Broadband/Payment',
+        newPlan: plan
+      });
+    }
+
+    // console.log(plans);
     return(
         <div>
             <Container maxWidth="md" component="main">
                 <Grid container spacing={5} alignItems="flex-end">
                 {plans.map((plan) => (
                     // Enterprise card is full width at sm breakpoint
-                    <Grid item key={plan.plan} xs={12} sm={plan.plan === 'TELSTRA 849' ? 12 : 6} md={4}>
+                    <Grid item key={plan.plan} xs={12} sm={6} md={4}>
                     <Card>
                         <CardHeader
                         title={plan.plan}
@@ -139,7 +151,7 @@ export default function Cardgrid(){
                             </ul>
                         </CardContent>
                         <CardActions>
-                        <Button fullWidth variant="outlined" color="primary">
+                        <Button fullWidth variant="outlined" color="primary" onClick = {() => sendPlanDetails(plan)}>
                             Buy now
                         </Button>
                         </CardActions>

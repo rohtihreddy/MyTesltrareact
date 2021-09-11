@@ -73,8 +73,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Indexnavbar(props){
     const classes = useStyles();
-    console.log(props.authenticated + "Navbar");
-  console.log(props.user + "Navbar");
+    // console.log(props.authenticated + "Navbar");
+  // console.log(props.user + "Navbar");
     return(
         <Container>
             <AppBar position="fixed" color="default" elevation={0} className={classes.appBar}>

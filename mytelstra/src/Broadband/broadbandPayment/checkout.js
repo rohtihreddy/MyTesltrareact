@@ -15,13 +15,16 @@ import PaymentForm from 'payment/paymentDetails';
 import Review from 'payment/review';
 import Navbar from 'Broadband/navbar'
 import { UserAuthenticated, USER, NewBroadbandPlan } from 'constants/index';
+import { useState, useEffect } from 'react';
+import { useLocation } from "react-router-dom";
+
 
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
       {'Copyright © '}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        MyTelstra
       </Link>{' '}
       {new Date().getFullYear()}
       {'.'}
@@ -68,22 +71,34 @@ const useStyles = makeStyles((theme) => ({
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
-
-export default function Checkout() {
+export default function Checkout(props) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
+  const location = useLocation();
+  const [address, setState] = useState({});
+  const paymentInfo = {};
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return <AddressForm parentHandleAddress = {handleAddress}/>;
+      case 1:
+        return <PaymentForm parentHandlePaymentDetails = {handlePaymentDetails}/>;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error('Unknown step');
+    }
+  }
+
+  const handleAddress = (addressChild) => {
+    setState(addressChild);
+    console.log(address);
+  }
+
+  const handlePaymentDetails = () => {
+
+  }
 
   const handleNext = () => {
     setActiveStep(activeStep + 1);
@@ -93,7 +108,7 @@ export default function Checkout() {
     setActiveStep(activeStep - 1);
   };
 
-  console.log(localStorage.getItem(NewBroadbandPlan));
+  // console.log(location.newPlan);
 
   return (
     <React.Fragment>

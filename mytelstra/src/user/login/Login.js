@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './Login.css';
-import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN } from '../../constants';
-import { login } from '../../util/APIUtils';
+import { GOOGLE_AUTH_URL, FACEBOOK_AUTH_URL, GITHUB_AUTH_URL, ACCESS_TOKEN, UserAuthenticated, USER } from '../../constants';
+import { getCurrentUser, login } from '../../util/APIUtils';
 import { Link, Redirect } from 'react-router-dom'
 import fbLogo from '../../img/fb-logo.png';
 import googleLogo from '../../img/google-logo.png';
@@ -91,8 +91,13 @@ class LoginForm extends Component {
         login(loginRequest)
         .then(response => {
             localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+            localStorage.setItem(UserAuthenticated, true);
+            getCurrentUser().then(response => localStorage.setItem(USER, response));
+            console.log("From LogIn");
+            console.log(localStorage.getItem(UserAuthenticated));
+            console.log(localStorage.getItem(USER));
             Alert.success("You're successfully logged in!");
-            this.props.history.push("/");
+            this.props.history.push("/home");
         }).catch(error => {
             Alert.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
         });
