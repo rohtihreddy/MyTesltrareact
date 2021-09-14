@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Box from '@material-ui/core/Box';
 import FadeMenu from 'Broadband/Menu';
-import Cardgrid from 'Broadband/viewPlans/planCards';
+import Cardgrid from 'Broadband/upgradePlans/planCards';
 import IndexNavbar from 'Broadband/navbar';
 
 
@@ -76,6 +76,8 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
+
+
 
 export default function UpgradePlans() {
   const classes = useStyles();

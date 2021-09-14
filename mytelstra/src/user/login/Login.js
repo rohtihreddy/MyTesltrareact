@@ -8,6 +8,7 @@ import googleLogo from '../../img/google-logo.png';
 import githubLogo from '../../img/github-logo.png';
 import Alert from 'react-s-alert';
 
+
 class Login extends Component {
     componentDidMount() {
         // If the OAuth2 login encounters an error, the user is redirected to the /login page with an error.
@@ -37,7 +38,7 @@ class Login extends Component {
         return (
             <div className="login-container">
                 <div className="login-content">
-                    <h1 className="login-title">Login to SpringSocial</h1>
+                    <h1 className="login-title">Login to MyTelstra</h1>
                     <SocialLogin />
                     <div className="or-separator">
                         <span className="or-text">OR</span>
@@ -73,6 +74,8 @@ class LoginForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    
+   
     handleInputChange(event) {
         const target = event.target;
         const inputName = target.name;        
@@ -85,19 +88,26 @@ class LoginForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();   
-
         const loginRequest = Object.assign({}, this.state);
+
+
 
         login(loginRequest)
         .then(response => {
             localStorage.setItem(ACCESS_TOKEN, response.accessToken);
             localStorage.setItem(UserAuthenticated, true);
-            getCurrentUser().then(response => localStorage.setItem(USER, JSON.stringify(response)));
+            getCurrentUser().then(response => localStorage.setItem(USER,JSON.stringify(response)));
             console.log("From LogIn");
             console.log(localStorage.getItem(UserAuthenticated));
             console.log(localStorage.getItem(USER));
+            var x= JSON.parse(localStorage.getItem(USER));
             Alert.success("You're successfully logged in!");
-            this.props.history.push("/home");
+            this.props.history.push({
+                pathname: "/home",
+                authenticated: localStorage.getItem(UserAuthenticated),
+                currentUser: x
+            })
+            //this.props.history.push("/home");
         }).catch(error => {
             Alert.error((error && error.message) || 'Oops! Something went wrong. Please try again!');
         });

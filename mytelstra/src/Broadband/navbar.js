@@ -16,6 +16,8 @@ import {
   Container,
 } from "reactstrap";
 import { Link } from 'react-router-dom';
+import MobileMenu from 'Mobile/MobileMenu.js';
+import { UserAuthenticated } from 'constants/index.js';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -79,16 +81,18 @@ export default function Indexnavbar(props){
         <Container>
             <AppBar position="fixed" color="default" elevation={0} className={classes.appBar}>
                 <Toolbar className={classes.toolbar}>
-                    <img src = {logo} className={classes.logo} alt = "Company logo">
+                  <a href="/home">
+                    <img src = {logo} className={classes.logo} alt = "Company logo" >
                     </img>
+                    </a>
                     <Typography variant="h6" color="inherit" noWrap className={classes.toolbarTitle}>
                     </Typography>
-                    <FadeMenu menuName = "Mobile" className = {classes.link}/>
+                    <MobileMenu menuName = "Mobile" className = {classes.link}/>
                     <FadeMenu menuName = "Broadband" className = {classes.link} authenticated = {props.authenticated} user = {props.user}/>
                     <FadeMenu menuName = "Shop" className = {classes.link}/>
                     <FadeMenu menuName = "cart" className = {classes.link}/>
                     
-                {props.authenticated ? (<Link
+                {localStorage.getItem(UserAuthenticated) ? (<Link
             title="Profile" to = {{pathname: '/profile', authenticated: props.authenticated}}>
         <i className="nc-icon nc-circle-10" />
         </Link>):(<div></div>) }

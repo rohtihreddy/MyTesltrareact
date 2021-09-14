@@ -37,31 +37,31 @@ export default function Review(props) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Order summary
+        Plan summary
       </Typography>
       <List disablePadding>
         {plans.map((product) => (
           <ListItem className={classes.listItem} key={product.id}>
-            <ListItemText primary={product.plan} secondary={"Data: " + product.data + " Speed: " + product.speed} />
-            <Typography variant="body2">{product.price}</Typography>
+            <ListItemText primary={product.plan} secondary={"Data: " + product.data +"Gb"+"  Speed: " + product.speed+"Mbps"} />
+            <Typography variant="body2">{"₹"+product.price}</Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            {calculateTotal()}
+            {"₹"+calculateTotal()}
           </Typography>
         </ListItem>
       </List>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        {/* <Grid item xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
-            Shipping
+            Billing Address
           </Typography>
           <Typography gutterBottom>{props.addressInfo.firstName + " " + props.addressInfo.lastName}</Typography>
-          <Typography gutterBottom>{props.addressInfo.address1 + " " + props.addressInfo.address2}</Typography>
+          <Typography gutterBottom>{props.addressInfo.address1 + ", " + props.addressInfo.address2 +","}</Typography>
           <Typography gutterBottom>{props.addressInfo.city + ", " + props.addressInfo.state + " - " + props.addressInfo.zip}</Typography>
-        </Grid>
+        </Grid> */}
         <Grid item container direction="column" xs={12} sm={6}>
           <Typography variant="h6" gutterBottom className={classes.title}>
             Payment details

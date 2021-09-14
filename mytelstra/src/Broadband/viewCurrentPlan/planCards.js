@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import {USER} from 'constants/index'
 
 const useStyles = makeStyles((theme) => ({
     '@global': {
@@ -72,19 +73,26 @@ export default function Cardgrid(){
     const classes = useStyles();
     const [plan, setState] = useState({});
     const [details, setDetails] = useState({});
-    useEffect(() => {
-        axios
-          .get("http://localhost:8088/currentPlan/10001")
-          .then(response => setDetails(response.data));
-    }, []);
-    useEffect(() => {
-      const url = "http://localhost:8088/broadbandPlan/" + details.planId;
-      axios
-        .get(url)
-        .then(response => setState(response.data));
-    }, [details]);
-    console.log(details);
-    console.log(plan);
+    var userDetails = JSON.parse(localStorage.getItem(USER));
+
+    const getPlan = async () => {
+       await axios.get("http://localhost:8088/currentPlan/"+ userDetails.id)
+      .then(response=> setDetails(response.data))
+       
+      };
+      useEffect(() => {
+       getPlan();
+      }, []);
+  
+    const getPlanDetails = async () => {
+      await axios.get("http://localhost:8088/broadbandPlan/"+ details.planId)
+     .then(response=> setState(response.data))
+      
+     };
+     useEffect(() => {
+      getPlanDetails();
+     }, [details]);
+   
     return(
         <div>
             <Container maxWidth="md" component="main">

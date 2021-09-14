@@ -16,13 +16,14 @@ class Profile extends Component {
     render() {
         return (
             <div className="profile-container">
-                <Button onClick = {() => {
+                <Button href="/" onClick = {() => {
                     localStorage.removeItem(ACCESS_TOKEN);
                     localStorage.removeItem(UserAuthenticated);
                     localStorage.removeItem(USER);
                     this.setState({
                     authenticated: false,
-                    currentUser: null
+                    currentUser: null,
+                    
                     });
                     Alert.success("You're safely logged out!");
                 }}>Log out</Button>

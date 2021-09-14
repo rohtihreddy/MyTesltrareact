@@ -10,7 +10,10 @@ import Link from '@material-ui/core/Link';
 import Box from '@material-ui/core/Box';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Alert from 'react-s-alert';
+import 'react-s-alert/dist/s-alert-default.css';
+import 'react-s-alert/dist/s-alert-css-effects/slide.css';
+import { useHistory } from "react-router-dom";
 
 
 function Copyright() {
@@ -80,58 +83,56 @@ export default function AddressForm(props) {
         zip: "",
         address: ""
     });
-    useEffect( () => {
-        if(validate){
-            const finalAddress = {
-                street: address.address + address.address2,
-                city: address.city,
-                state: address.state,
-                pincode: address.zip
-            }
-            console.log(finalAddress);
-            axios
-            .post("http://localhost:8088/address", {
-                    // address: finalAddress
-                    street: address.address,
-                    city: address.city,
-                    state: address.state,
-                    pincode: address.zip
-            })
-            .then(response => {
-              console.log(response);
-              setResponse(response.data);
-            });
-            console.log(resp);
-            setSendRequest(true);
-            validatePin(false);
-        }
-    }, [validate, address, resp]);
-    useEffect(() => {
-        if(send){
-            console.log(resp);
-            console.log("Inside SetSendRequest")
-            setSendRequest(false)
-        }
-    },[send, resp]);
+    let history = useHistory();
 
-    useEffect(() => {
-      console.log(resp);
-      if(resp === false){
-        setAvailable(false);
-      }
-      inputRef.current.click();
-    },[resp]);
+    // function postaddress(){
+     
+    //   if(validate){
+    //     axios.post("http://localhost:8088/address", {
+    //       street: address.address,
+    //                 city: address.city,
+    //                 state: address.state,
+    //                 pincode: address.zip
+    //     }).then(function(response){setResponse(response.data); console.log(resp)});
+    //   }}
+
+      const validateAdd = async () => {
+        await axios.post("http://localhost:8088/address",{
+          street: address.address,
+          city: address.city,
+          state: address.state,
+          pincode: address.zip
+        })
+       .then(response=> setResponse(response.data))
+        console.log(resp)
+       };
+      //  useEffect(() => {
+      //   validateAdd();
+      //  }, []);
+    
 
     const setAddress = (event) => {
         setState({
             ...address,
             [event.target.name]: event.target.value
         });
-        address.address = address.address1 + " " + address.address2;
+
         console.log(address);
     }
-  console.log(props.authenticated + "New Connection");
-  console.log(props.user + "New Connection");
+
+    const handleValidate = () => {
+      validateAdd();
+      validatePin(true)
+      console.log(resp);
+      if(resp==true){
+        history.push({
+        pathname:"/Broadband/viewPlans"
+      });
+      }
+      else if(resp==false){
+        Alert.error("Network not available at this address");
+      }
+    }
   return (
     <React.Fragment>
       <Indexnavbar authenticated = {props.authenticated} user = {props.user} />
@@ -143,54 +144,21 @@ export default function AddressForm(props) {
           </Typography>
           <React.Fragment>
             <React.Fragment>
-            <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    required
-                    id="firstName"
-                    name="firstName"
-                    label="First name"
-                    fullWidth
-                    autoComplete="given-name"
-                    onChange={setAddress}
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    required
-                    id="lastName"
-                    name="lastName"
-                    label="Last name"
-                    fullWidth
-                    autoComplete="family-name"
-                    onChange={setAddress}
-
-                />
-                </Grid>
+           
+                <Grid container spacing={2}>
                 <Grid item xs={12}>
                 <TextField
                     required
-                    id="address1"
-                    name="address1"
-                    label="Address line 1"
+                    id="address"
+                    name="address"
+                    label="Address"
                     fullWidth
-                    autoComplete="shipping address-line1"
+                    autoComplete="shipping address"
                     onChange={setAddress}
                     
                 />
                 </Grid>
                 <Grid item xs={12}>
-                <TextField
-                    id="address2"
-                    name="address2"
-                    label="Address line 2"
-                    fullWidth
-                    autoComplete="shipping address-line2"
-                    onChange={setAddress}
-
-                />
-                </Grid>
-                <Grid item xs={12} sm={6}>
                 <TextField
                     required
                     id="city"
@@ -202,10 +170,7 @@ export default function AddressForm(props) {
 
                 />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField id="state" name="state" label="State/Province/Region" onChange={setAddress}  fullWidth />
-                </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12} >
                 <TextField
                     required
                     id="zip"
@@ -216,34 +181,17 @@ export default function AddressForm(props) {
                     onChange={setAddress}
                 />
                 </Grid>
-                <Grid item xs={12} sm={6}>
-                <TextField
-                    required
-                    id="country"
-                    name="country"
-                    label="Country"
-                    fullWidth
-                    autoComplete="shipping country"
-                    onChange={setAddress}
-
-                />
-                </Grid>
                 <Grid item xs={12}>
-                    <p>{available ? "" : "Adress not available"}</p>
+                <TextField id="state" name="state" label="State/Province/Region" onChange={setAddress}  fullWidth />
                 </Grid>
+                
             </Grid>
                 <div className={classes.buttons}>
                   <Button
-                    ref={inputRef}
-                    href={resp ? "/Broadband/viewPlans" : ""}
                     variant="contained"
                     color="primary"
-                    disabled={validate}
                     className={classes.button}
-                    onClick={() => {
-                      console.log("hello");
-                      validatePin(true)
-                      }}
+                    onClick={handleValidate}
                   >Proceed
                   </Button>
                 </div>

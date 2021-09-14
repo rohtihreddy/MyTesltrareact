@@ -78,8 +78,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ViewPlans(props) {
   const classes = useStyles();
-  console.log(props.authenticated + "View plans");
-  console.log(props.user + "View plans");
   return (
     <React.Fragment>
       <CssBaseline />

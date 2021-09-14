@@ -62,11 +62,10 @@ function DemoNavbar(props) {
         <div className="navbar-translate">
           <NavbarBrand
             data-placement="bottom"
-            href="/index"
-            target="_blank"
+            href="/home"
             title="MyTelstra Home"
           ><img src={logo} className="logo" alt="logo"></img>
-            MyTelstra
+            
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
@@ -89,7 +88,7 @@ function DemoNavbar(props) {
             <NavItem>
               <NavLink
                 data-placement="bottom"
-                href="/Mobile"
+                href="/mobile/plans"
                 title="Mobile"
               >Mobile
               </NavLink>
@@ -136,3 +135,4 @@ function DemoNavbar(props) {
 }
 
 export default DemoNavbar;
+

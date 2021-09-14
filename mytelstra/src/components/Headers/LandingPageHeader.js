@@ -46,7 +46,7 @@ function LandingPageHeader() {
       <div
         style={{
           backgroundImage:
-            "url(" + require("assets/img/daniel-olahh.jpg").default + ")",
+            "url(" + require("assets/img/telstra.png").default + ")",
         }}
         className="page-header"
         data-parallax={true}
@@ -56,7 +56,7 @@ function LandingPageHeader() {
         <Container>
           <div className="motto text-center">
             <h1 className="presentation-title">MyTelstra</h1>
-            <h3>Experience the new age of communications</h3>
+          
             <br />
             <div class="d-flex justify-content-sm-center mb-5">
             <Button

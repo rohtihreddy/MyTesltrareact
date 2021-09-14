@@ -47,7 +47,7 @@ function GetGreetings(){
 }
 
 
-export default function HomeBody(){
+export default function HomeBody(props){
     const classes = makeStyles();
     const [user, setState] = useState([]);
     const [Plan, setPlan] = useState([]);
@@ -77,7 +77,7 @@ export default function HomeBody(){
               <Container>
                 <div className="title-brand">
                   <GetGreetings />
-                  <h2 className="presentation-title">{user.username}</h2>
+                  <h2 className="presentation-title">{userDetails.name}</h2>
                   <div className="fog-low">
                     <img
                       alt="..."
@@ -100,7 +100,7 @@ export default function HomeBody(){
                     </CardIcon>
                     <h3 className="text-center"><small>Data Usage</small></h3>
                     <h4 className="text-center">
-                       <small >{user.dataremaining+"/500"} GB</small>
+                       <small >{user.dataremaining+"/"+user.dataremaining} GB</small>
                     </h4>
                     </CardHeader>
                     <CardFooter stats>
@@ -120,7 +120,7 @@ export default function HomeBody(){
                     </CardIcon>
                     <h3 className="text-center"><small>Data Usage</small></h3>
                     <h4 className="text-center">
-                       <small >{user.dataremaining+"/500"} GB</small>
+                       <small >{user.dataremaining+"/"+ user.dataremaining} GB</small>
                     </h4>
                     </CardHeader>
                     <CardFooter stats>

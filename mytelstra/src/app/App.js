@@ -22,6 +22,17 @@ import Landing from 'Landing';
 import ViewPlans from 'Broadband/viewPlans/viewPlans';
 import AddressForm from 'Broadband/NewConnection/newConAddressForm';
 import Checkout from 'Broadband/broadbandPayment/checkout';
+import ViewCurrentPlans from 'Broadband/viewCurrentPlan/ViewCurrentPlan';
+import UpgradePlans from 'Broadband/upgradePlans/UpgradePlans';
+import MobileCheckOut from 'Mobile/mobilePayment/checkout';
+import ViewMobilePlans from 'Mobile/viewPlans/viewPlans'
+import ViewTransactionHistory from 'Mobile/viewTransactionHistory/viewTransactionHistoy';
+import ViewActiveMobilePlans from 'Mobile/activePlans/viewActivePlans';
+import ViewUsageHistory from 'Mobile/viewUsageHistory/viewUsageHistory';
+import ViewPlansHistory from 'Broadband/viewPlansHistory/viewTransactionHistoy';
+import ViewBillDetails from 'Broadband/billdetails/ViewBillDetails'
+import ViewPlans2 from 'Broadband/viewPlans/viewplans2';
+import KommunicateChat from 'chat';
 class App extends Component {
   
   constructor(props) {
@@ -81,13 +92,20 @@ class App extends Component {
     return (
       <div className="app">
         <div className="app-body">
+        <KommunicateChat/>
           <Switch>
-            <Route exact path="/Broadband" component={(props) => <ViewPlans authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></Route>
-            <PrivateRoute exact path="/Broadband/newConnection" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
-              component={(props) => <AddressForm authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></PrivateRoute>
+            <Route exact path="/Broadband" component={(props) => <ViewPlans2 authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></Route>
+            <PrivateRouteNew exact path="/Broadband/newConnection" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+              component={(props) => <AddressForm authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></PrivateRouteNew>
 
             <PrivateRouteNew exact path="/Broadband/viewPlans" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
               component={(props) => <ViewPlans authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
+
+              <PrivateRouteNew exact path="/Broadband/upgradeplan" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+              component={(props) => <UpgradePlans authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
+
+              <PrivateRouteNew exact path="/Broadband/currentplan" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+              component={(props) => <ViewCurrentPlans authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
 
             <PrivateRouteNew path="/profile" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
               component={(props) => <Profile authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
@@ -95,17 +113,47 @@ class App extends Component {
             <PrivateRouteNew path="/Broadband/Payment" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
               component={(props) => <Checkout newPlan = {this.props.newPlan} {...props}/>}></PrivateRouteNew>
 
+            <PrivateRouteNew exact path="/Broadband/rechargehistory" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+            component={(props) => <ViewPlansHistory authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
+
+            <PrivateRouteNew exact path="/Broadband/billdetails" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+            component={(props) => <ViewBillDetails authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
+
 
             <Route exact path="/" component={Landing}></Route>           
-            <PrivateRouteNew path="/home" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+            <PrivateRouteNew path="/home" authenticated={localStorage.getItem(UserAuthenticated)} currentUser={JSON.parse(localStorage.getItem(USER))}
               component={(props) => <Home authenticated={this.state.authenticated} user = {this.state.currentUser} {...props}/>}></PrivateRouteNew>
             <Route path="/login"
               render={(props) => <Login authenticated={this.state.authenticated} {...props} />}></Route>
             <Route path="/signup"
               render={(props) => <Signup authenticated={this.state.authenticated} {...props} />}></Route>
             <Route path="/oauth2/redirect" component={OAuth2RedirectHandler}></Route>  
-            <Route component={NotFound}></Route>
+           
 
+
+            
+            <PrivateRouteNew exact path="/mobile/plans" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+
+              component={(props) => <ViewMobilePlans authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
+
+            <PrivateRouteNew exact path="/mobile/activeplans" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+
+              component={(props) => <ViewActiveMobilePlans authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
+
+            <PrivateRouteNew exact path="/mobile/rechargehistory" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+
+              component={(props) => <ViewTransactionHistory authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
+
+            <PrivateRouteNew exact path="/mobile/usagehistory" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+
+              component={(props) => <ViewUsageHistory authenticated={this.state.authenticated} {...props}/>}></PrivateRouteNew>
+
+            <PrivateRouteNew path="/mobile/payment" authenticated={this.state.authenticated} currentUser={this.state.currentUser}
+
+              component={(props) => <MobileCheckOut newPlan = {this.props.newPlan} {...props}/>}></PrivateRouteNew>
+
+
+            <Route component={NotFound}></Route>
           </Switch>
         </div>
         <Alert stack={{limit: 3}} 

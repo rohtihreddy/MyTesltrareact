@@ -6,6 +6,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import { useState, useEffect } from 'react';
 import { event } from 'jquery';
+import { TextFieldsSharp } from '@material-ui/icons';
 
 
 export default function AddressForm(props) {
@@ -43,12 +44,12 @@ export default function AddressForm(props) {
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6}>
           <TextField
-            required
             id="firstName"
             name="firstName"
             label="First name"
             fullWidth
             autoComplete="given-name"
+            required={true}
             onChange={setAddress}
           />
         </Grid>

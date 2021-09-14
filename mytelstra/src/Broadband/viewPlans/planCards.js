@@ -152,7 +152,7 @@ export default function Cardgrid(){
                         </CardContent>
                         <CardActions>
                         <Button fullWidth variant="outlined" color="primary" onClick = {() => sendPlanDetails(plan)}>
-                            Buy now
+                            Buy New Plan
                         </Button>
                         </CardActions>
                     </Card>

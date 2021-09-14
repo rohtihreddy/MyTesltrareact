@@ -11,6 +11,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import {USER} from 'constants/index'
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     '@global': {
@@ -66,12 +68,24 @@ const useStyles = makeStyles((theme) => ({
 export default function Cardgrid(){
     const classes = useStyles();
     const [plans, setState] = useState([]);
+    let history = useHistory();
+    var userDetails = JSON.parse(localStorage.getItem(USER));
+   
     useEffect(() => {
         axios
-            .get("http://localhost:8088/viewUpgradePlans/7485596142")
+            .get("http://localhost:8088/UpgradePlans/"+userDetails.id)
             .then(response => setState(response.data))
-    }, [])
-    console.log(plans);
+    }, [userDetails])
+
+    
+    const sendupgradePlanDetails = (plan) => {
+      history.push({
+      pathname: '/Broadband/Payment',
+      newPlan: plan
+    });
+    console.log(plan);
+  }
+    
     return(
         <div>
             <Container maxWidth="md" component="main" >
@@ -139,8 +153,8 @@ export default function Cardgrid(){
                             </ul>
                         </CardContent>
                         <CardActions>
-                        <Button fullWidth variant="outlined" color="primary">
-                            Buy now
+                        <Button fullWidth variant="outlined" color="primary" onClick = {() => sendupgradePlanDetails(plan)}>
+                            Upgrade Plan
                         </Button>
                         </CardActions>
                     </Card>
